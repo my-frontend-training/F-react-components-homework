@@ -36,7 +36,9 @@ class Chat extends Component {
       tags: ['CUSTOMER'],
     });
 
-    const replyMessage = answersData.find((answer) => answer.tags.includes(value));
+    const replyMessage = answersData.find((answer) =>
+      answer.tags.find((tag) => value.includes(tag))
+    );
     if (replyMessage) {
       messages = [...messages, replyMessage];
     }
