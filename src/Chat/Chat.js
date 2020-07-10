@@ -5,6 +5,7 @@ import ChatBox from './ChatBox/ChatBox';
 import ChatInput from './ChatInput/ChatInput';
 import shopData from '../data/shop.json';
 import answersData from '../data/answers.json';
+import { ROLE } from '../constants';
 
 class Chat extends Component {
   constructor(props, context) {
@@ -27,13 +28,27 @@ class Chat extends Component {
     }, 1000);
   }
 
+  sendMessage = (value) => {
+    // eslint-disable-next-line react/no-access-state-in-setstate
+    const messages = this.state.messages.concat({
+      text: value,
+      role: ROLE.CUSTOMER,
+      tags: ['CUSTOMER'],
+    });
+
+    this.setState({
+      messages,
+    });
+  };
+
   render() {
     const { shop, messages } = this.state;
+    console.log(messages);
     return (
       <main className="Chat">
         <ChatHeader shop={shop} />
         <ChatBox messages={messages} />
-        <ChatInput />
+        <ChatInput onSendMessage={this.sendMessage} />
       </main>
     );
   }
