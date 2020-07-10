@@ -30,12 +30,16 @@ class Chat extends Component {
 
   sendMessage = (value) => {
     // eslint-disable-next-line react/no-access-state-in-setstate
-    const messages = this.state.messages.concat({
+    let messages = this.state.messages.concat({
       text: value,
       role: ROLE.CUSTOMER,
       tags: ['CUSTOMER'],
     });
 
+    const replyMessage = answersData.find((answer) => answer.tags.includes(value));
+    if (replyMessage) {
+      messages = [...messages, replyMessage];
+    }
     this.setState({
       messages,
     });
@@ -43,7 +47,6 @@ class Chat extends Component {
 
   render() {
     const { shop, messages } = this.state;
-    console.log(messages);
     return (
       <main className="Chat">
         <ChatHeader shop={shop} />
