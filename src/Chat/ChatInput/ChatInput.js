@@ -22,11 +22,22 @@ class ChatInput extends Component {
     });
   }
 
+  handleEnterKey(e) {
+    if (e.nativeEvent.keyCode === 13) {
+      this.sendMessage();
+    }
+  }
+
   render() {
     const { inputValue } = this.state;
     return (
       <footer className="ChatInput">
-        <input type="text" value={inputValue} onChange={this.handleInputValue.bind(this)} />
+        <input
+          type="text"
+          value={inputValue}
+          onChange={this.handleInputValue.bind(this)}
+          onKeyPress={this.handleEnterKey.bind(this)}
+        />
         <button type="button" onClick={() => this.sendMessage()}>
           Send
         </button>
